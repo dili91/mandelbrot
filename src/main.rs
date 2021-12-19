@@ -1,6 +1,6 @@
 use std::{env, fs::File, str::FromStr};
 
-use image::{png::PNGEncoder, ColorType, ImageError};
+use image::{png::PNGEncoder, ColorType};
 use num::Complex;
 
 fn main() {
@@ -21,7 +21,7 @@ fn main() {
 
     let mut pixels = vec![0; bounds.0 * bounds.1];
 
-    
+
     render(&mut pixels, bounds, upper_left, lower_right);
 
     write_image(&args[1], &pixels, bounds).expect("error writing the PNG file")
@@ -162,7 +162,7 @@ fn render(
 
 /// Write the buffer `pixels`, whose dimensions are given by `bounds`, to
 /// the file named `filename`.
-fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize)) -> Result<(), ImageError> {
+fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize)) -> Result<(), std::io::Error> {
     let output = File::create(filename)?;
 
     let encoder = PNGEncoder::new(output);
